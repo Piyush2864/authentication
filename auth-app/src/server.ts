@@ -4,6 +4,8 @@ import { connectToDB } from './db/config';
 import passport from 'passport';
 import session from 'express-session';
 import googleRoutes from './routes/googleRoutes';
+import githubRoutes from './routes/githubRoute';
+import discordRoutes from './routes/discordRoute';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -27,6 +29,8 @@ const PORT = process.env.PORT;
 connectToDB();
 
 app.use('/auth', googleRoutes);
+app.use('/auth', githubRoutes);
+app.use('/auth', discordRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send("Api is running");
