@@ -1,27 +1,36 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-export const generateAccessTOken = (userId: string) => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: "1d" });
+const ACCESS_SECRET = process.env.JWT_SECRET!;
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
+
+interface JwtPayload {
+  userId: string;
+}
+
+export const generateAccessToken = (userId: string): string => {
+  return jwt.sign({ userId }, ACCESS_SECRET, { expiresIn: "1d" });
 };
 
-export const generateRefreshToken = (userId: string) => {
-    return jwt.sign({userId}, process.env.JWT_REFRESH_SECRET!, {expiresIn: "7d"})
+export const generateRefreshToken = (userId: string): string => {
+  return jwt.sign({ userId }, REFRESH_SECRET, { expiresIn: "7d" });
 };
 
-export const verifyAccessToken = (token:string) => {
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET!) as {userId: string};
-        return decoded.userId;
-    } catch (error) {
-        console.error('Error in verifying access token', error);
-    }
+export const verifyAccessToken = (token: string): string | null => {
+  try {
+    const decoded = jwt.verify(token, ACCESS_SECRET) as JwtPayload;
+    return decoded.userId;
+  } catch (error) {
+    console.error("Error verifying access token:", error);
+    return null;
+  }
 };
 
-export const verifyRefreshToken = (token: string) => {
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET!) as { userId: string };
-        return decoded.userId;
-    } catch (error) {
-        console.error('Error in verifying refresh token', error);
-    }
+export const verifyRefreshToken = (token: string): string | null => {
+  try {
+    const decoded = jwt.verify(token, REFRESH_SECRET) as JwtPayload;
+    return decoded.userId;
+  } catch (error) {
+    console.error("Error verifying refresh token:", error);
+    return null;
+  }
 };

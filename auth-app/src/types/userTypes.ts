@@ -1,9 +1,14 @@
+export interface ProviderAccount {
+  provider: string;
+  providerId: string;
+  email?: string | null;  
+}
+
 export interface IUser {
-    provider:string,
-    providerId:string,
-    email:string,
-    name:string,
-    avatar:string,
-    refreshToken:string,
-    profileData:object
+  name?: string | null;
+  email?: string;
+  avatarUrl?: string | null;
+  refreshToken?: string;
+  profileData?: Record<string, any>;
+  providers: ProviderAccount[];
 }

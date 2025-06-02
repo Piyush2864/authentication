@@ -1,11 +1,9 @@
 import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { connectToDB } from './db/config';
-import passport from 'passport';
-import session from 'express-session';
-import googleRoutes from './routes/googleRoutes';
-import githubRoutes from './routes/githubRoute';
-import discordRoutes from './routes/discordRoute';
+import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -14,23 +12,17 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(session({
-//     secret: process.env.SESSION_SECRET!,
-//     resave: false,
-//     saveUninitialized: false
-// })
-// );
-
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
 
 const PORT = process.env.PORT;
 
 connectToDB();
 
-app.use('/auth', googleRoutes);
-app.use('/auth', githubRoutes);
-app.use('/auth', discordRoutes);
+app.use('/auth', authRoutes);
+app.use('/auth/user', userRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send("Api is running");
