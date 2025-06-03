@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getGoogleConfig } from "../provider/google";
-import { getGitHubConfig } from "../provider/github";
-import { getDiscordConfig } from "../provider/discord";
+import { getGoogleConfig } from "../provider/google.js";
+import { getGitHubConfig } from "../provider/github.js";
+import { getDiscordConfig } from "../provider/discord.js";
 
 const configMap = {
   google: getGoogleConfig,

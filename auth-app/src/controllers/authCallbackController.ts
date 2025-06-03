@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
-import { getGoogleConfig, getGoogleUser } from "../provider/google";
-import { getGitHubConfig, getGitHubUser } from "../provider/github";
-import { getDiscordConfig, getDiscordUser } from "../provider/discord";
-import { UserService } from "../services/userService";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt.js";
+import { getGoogleConfig, getGoogleUser } from "../provider/google.js";
+import { getGitHubConfig, getGitHubUser } from "../provider/github.js";
+import { getDiscordConfig, getDiscordUser } from "../provider/discord.js";
+import { UserService } from "../services/userService.js";
 
 const userService = new UserService();
 
@@ -19,7 +19,7 @@ const fetchUserMap = {
   discord: getDiscordUser,
 };
 
-export const handleOAuthCallback = async (req: Request, res: Response) => {
+export const handleOAuthCallback = async (req: Request, res: Response): Promise<void> => {
   const { provider } = req.params;
   const code = req.query.code as string;
 
@@ -27,7 +27,7 @@ export const handleOAuthCallback = async (req: Request, res: Response) => {
   const getUser = fetchUserMap[provider as keyof typeof fetchUserMap];
 
   if (!getConfig || !getUser || !code) {
-    return res.status(400).json({ error: "Invalid provider or code" });
+     res.status(400).json({ error: "Invalid provider or code" });
   }
 
   try {
@@ -69,7 +69,7 @@ export const handleOAuthCallback = async (req: Request, res: Response) => {
     );
   } catch (error) {
     console.error("OAuth callback error:", error);
-    return res.status(500).json({ error: "OAuth login failed" });
+     res.status(500).json({ error: "OAuth login failed" });
   }
 };
 

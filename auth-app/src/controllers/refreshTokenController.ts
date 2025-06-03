@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import User from "../models/userModel";
+import User from "../models/userModel.js";
 import {
   generateAccessToken,
   generateRefreshToken,
   verifyRefreshToken,
-} from "../utils/jwt";
+} from "../utils/jwt.js";
 
 export const refreshAccessToken = async (
   req: Request,

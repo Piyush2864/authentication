@@ -1,4 +1,4 @@
-import { OAuthProviderConfig } from "../types/oauth";
+import { OAuthProviderConfig } from "../types/oauth.js";
 
 export const getGoogleConfig = (): OAuthProviderConfig => ({
   name: "google",

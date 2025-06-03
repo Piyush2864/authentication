@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { IUser } from '../types/userTypes';
+import { IUser } from '../types/userTypes.js';
 
 const ProviderSchema = new Schema({
   provider: { type: String, required: true },

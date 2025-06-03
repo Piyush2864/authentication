@@ -1,9 +1,9 @@
 import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { connectToDB } from './db/config';
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
+import { connectToDB } from './db/config.js';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -28,6 +28,4 @@ app.get('/', (req: Request, res: Response) => {
     res.send("Api is running");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on PORT${PORT}`);
-});
+export default app ;

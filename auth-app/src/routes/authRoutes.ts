@@ -1,9 +1,9 @@
 import express from 'express';
-import { handleOAuthRedirect } from '../controllers/authRedirectController';
-import { handleOAuthCallback } from '../controllers/authCallbackController';
-import { refreshAccessToken } from '../controllers/refreshTokenController';
-import { logout } from '../controllers/logoutController';
-import { authenticateUser } from '../middlewares/auth';
+import { handleOAuthRedirect } from '../controllers/authRedirectController.js';
+import { handleOAuthCallback } from '../controllers/authCallbackController.js';
+import { refreshAccessToken } from '../controllers/refreshTokenController.js';
+import { logout } from '../controllers/logoutController.js';
+import { authenticateUser } from '../middlewares/auth.js';
 
 const router = express.Router();
 
